@@ -1,11 +1,15 @@
+import { hashSync } from "bcrypt";
 import { NullValueException } from "../../../shared/domain/exceptions/NullValue.exception";
+import { ICrypt } from "../../../shared/domain/interfaces/crypt.interface";
 import { ValueObject } from "../../../shared/domain/valueObjects/valueObject";
 
 export class UserPassword implements ValueObject {
   value: string;
+  private crypt: ICrypt;
 
-  constructor(value: string) {
-    this.value = value;
+  constructor(value: string, crypt: ICrypt) {
+    this.crypt = crypt;
+    this.value = this.crypt.hasSync(value);
 
     this.checkValue();
   }

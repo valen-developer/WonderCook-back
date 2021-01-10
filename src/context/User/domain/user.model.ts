@@ -4,6 +4,7 @@ import { UserEmail } from "./valueObjects/email.valueObject";
 import { UserName } from "./valueObjects/name.valueObject";
 import { UserPassword } from "./valueObjects/password.valueObject";
 import { UpdateAt } from "../../shared/domain/valueObjects/updateAt.valueObject";
+import { ICrypt } from "../../shared/domain/interfaces/crypt.interface";
 
 export class User {
   public readonly name: UserName;
@@ -13,9 +14,9 @@ export class User {
   public readonly createAt: CreateAt;
   public readonly updateAt: UpdateAt;
 
-  constructor(newUser: UserCreatorInterface) {
+  constructor(newUser: UserCreatorInterface, crypt: ICrypt) {
     this.name = new UserName(newUser.name);
-    this.password = new UserPassword(newUser.password);
+    this.password = new UserPassword(newUser.password, crypt);
     this.email = new UserEmail(newUser.email);
     this.alias = new UserAlias(newUser.alias);
     this.createAt = new CreateAt(newUser.createAt);
