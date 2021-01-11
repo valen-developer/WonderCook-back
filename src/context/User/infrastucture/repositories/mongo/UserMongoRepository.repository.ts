@@ -40,6 +40,7 @@ export class UserMongoRepository implements UserRepository {
       password: user.password,
       updateAt: new Date(user.updateAt),
       uuid: user.uuid,
+      bio: user.bio,
     };
   }
 }

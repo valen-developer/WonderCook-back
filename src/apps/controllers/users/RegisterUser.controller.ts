@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { Controller } from "../controller";
 
-import { NullValueException } from "../../../context/shared/domain/exceptions/NullValue.exception";
 import {
   User,
   UserCreatorInterface,
@@ -24,6 +23,7 @@ export class RegisterUserController implements Controller {
       alias: body.alias,
       createAt: new Date(),
       updateAt: new Date(),
+      bio: body.bio,
     };
 
     try {

@@ -34,6 +34,9 @@ const UserMongoModel = new Schema({
     type: String,
     required: true,
   },
+  bio: {
+    type: String,
+  },
 });
 
 export default mongoose.model("user", UserMongoModel);

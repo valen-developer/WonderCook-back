@@ -6,6 +6,7 @@ import { UserPassword } from "./valueObjects/password.valueObject";
 import { UpdateAt } from "../../shared/domain/valueObjects/updateAt.valueObject";
 import { ICrypt } from "../../shared/domain/interfaces/crypt.interface";
 import { UserUUID } from "./valueObjects/uuid.valueObject";
+import { UserBio } from "./valueObjects/bio.valueObject";
 
 export class User {
   public readonly uuid: UserUUID;
@@ -15,6 +16,7 @@ export class User {
   public readonly alias: UserAlias;
   public readonly createAt: CreateAt;
   public readonly updateAt: UpdateAt;
+  public readonly bio: UserBio;
 
   constructor(newUser: UserCreatorInterface, crypt: ICrypt) {
     this.uuid = new UserUUID(newUser.uuid);
@@ -24,6 +26,7 @@ export class User {
     this.alias = new UserAlias(newUser.alias);
     this.createAt = new CreateAt(newUser.createAt);
     this.updateAt = new UpdateAt(newUser.updateAt);
+    this.bio = new UserBio(newUser.bio);
   }
 
   public toObject(): UserObject {
@@ -35,6 +38,7 @@ export class User {
       alias: this.alias.value,
       createAt: this.createAt.value,
       updateAt: this.updateAt.value,
+      bio: this.bio.value,
     };
 
     return user;
@@ -48,6 +52,7 @@ export class User {
       alias: this.alias.value,
       createAt: this.createAt.value,
       updateAt: this.updateAt.value,
+      bio: this.bio.value,
     };
     return user;
   }
@@ -61,6 +66,7 @@ export interface UserCreatorInterface {
   alias: string;
   createAt: Date;
   updateAt: Date;
+  bio: string | null;
 }
 
 export interface UserObject {
@@ -71,6 +77,7 @@ export interface UserObject {
   alias: string;
   createAt: string;
   updateAt: string;
+  bio: string | null;
 }
 export interface UserObjectWithOutPassword {
   uuid: string;
@@ -79,4 +86,5 @@ export interface UserObjectWithOutPassword {
   alias: string;
   createAt: string;
   updateAt: string;
+  bio: string | null;
 }
