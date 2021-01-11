@@ -5,8 +5,10 @@ import { UserName } from "./valueObjects/name.valueObject";
 import { UserPassword } from "./valueObjects/password.valueObject";
 import { UpdateAt } from "../../shared/domain/valueObjects/updateAt.valueObject";
 import { ICrypt } from "../../shared/domain/interfaces/crypt.interface";
+import { UserUUID } from "./valueObjects/uuid.valueObject";
 
 export class User {
+  public readonly uuid: UserUUID;
   public readonly name: UserName;
   public readonly email: UserEmail;
   public readonly password: UserPassword;
@@ -15,6 +17,7 @@ export class User {
   public readonly updateAt: UpdateAt;
 
   constructor(newUser: UserCreatorInterface, crypt: ICrypt) {
+    this.uuid = new UserUUID(newUser.uuid);
     this.name = new UserName(newUser.name);
     this.password = new UserPassword(newUser.password, crypt);
     this.email = new UserEmail(newUser.email);
@@ -25,6 +28,7 @@ export class User {
 
   public toObject(): UserObject {
     const user: UserObject = {
+      uuid: this.uuid.value,
       name: this.name.value,
       email: this.email.value,
       password: this.password.value,
@@ -35,9 +39,22 @@ export class User {
 
     return user;
   }
+
+  public toObjectWithOutPassword(): UserObjectWithOutPassword {
+    const user: UserObjectWithOutPassword = {
+      uuid: this.uuid.value,
+      name: this.name.value,
+      email: this.email.value,
+      alias: this.alias.value,
+      createAt: this.createAt.value,
+      updateAt: this.updateAt.value,
+    };
+    return user;
+  }
 }
 
-interface UserCreatorInterface {
+export interface UserCreatorInterface {
+  uuid: string;
   name: string;
   email: string;
   password: string;
@@ -46,10 +63,19 @@ interface UserCreatorInterface {
   updateAt: Date;
 }
 
-interface UserObject {
+export interface UserObject {
+  uuid: string;
   name: string;
   email: string;
   password: string;
+  alias: string;
+  createAt: string;
+  updateAt: string;
+}
+export interface UserObjectWithOutPassword {
+  uuid: string;
+  name: string;
+  email: string;
   alias: string;
   createAt: string;
   updateAt: string;

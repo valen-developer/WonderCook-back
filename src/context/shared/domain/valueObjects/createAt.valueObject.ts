@@ -5,8 +5,7 @@ export class CreateAt implements ValueObject {
   value: string;
 
   constructor(value: Date) {
-    this.value = value.toDateString();
-
+    this.value = value.toUTCString();
     this.checkValue();
   }
 
