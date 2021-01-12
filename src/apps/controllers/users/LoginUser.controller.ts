@@ -7,8 +7,15 @@ import { enviroment } from "../../../config/enviroment";
 import { User } from "../../../context/User/domain/user.model";
 import { Bcrypt } from "../../../context/shared/infrastructure/bcrypt";
 import { UserMongoRepository } from "../../../context/User/infrastucture/repositories/mongo/UserMongoRepository.repository";
+import { UserRepository } from "../../../context/User/domain/interfaces/User.repository";
 
 export class LoginUserController implements Controller {
+  private userRepository: UserRepository;
+
+  constructor(userRepository: UserRepository) {
+    this.userRepository = userRepository;
+  }
+
   async run(req: Request, resp: Response): Promise<void> {
     const body = req.body;
     const email = body.email;
@@ -16,8 +23,8 @@ export class LoginUserController implements Controller {
 
     try {
       const bcrypt = new Bcrypt();
-      const userRepository = new UserMongoRepository();
-      const userDB = await userRepository.findByEmail(email);
+
+      const userDB = await this.userRepository.findByEmail(email);
 
       const isValidUser = bcrypt.compare(password, userDB.password);
 

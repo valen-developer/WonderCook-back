@@ -13,6 +13,9 @@ export class RegisterUser {
   public async register(): Promise<void> {
     const saveReponse = await this.repository.save(this.user);
 
-    if (!saveReponse.ok) throw new Error(saveReponse.message);
+    if (!saveReponse.ok) {
+      console.log("Problema");
+      throw new Error("user already registered");
+    }
   }
 }

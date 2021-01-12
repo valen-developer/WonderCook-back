@@ -1,8 +1,12 @@
 import { Router } from "express";
+import { UserMongoRepository } from "../../context/User/infrastucture/repositories/mongo/UserMongoRepository.repository";
 import { RegisterUserController } from "../controllers/users/RegisterUser.controller";
 
 export const userRouter: Router = Router();
 
-const registerUserController = new RegisterUserController();
+userRouter.post("/", (req, resp) => {
+  const userRepository = new UserMongoRepository();
+  const registerUserController = new RegisterUserController(userRepository);
 
-userRouter.post("/", registerUserController.run);
+  registerUserController.run(req, resp);
+});

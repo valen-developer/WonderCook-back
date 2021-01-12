@@ -31,6 +31,10 @@
     "coveragePathIgnorePatterns": [
       "/node_modules/",
       "/src/"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules",
+      "/src/"
     ]
   }
 }
