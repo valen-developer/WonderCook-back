@@ -14,7 +14,6 @@ export class RegisterUser {
     const saveReponse = await this.repository.save(this.user);
 
     if (!saveReponse.ok) {
-      console.log("Problema");
       throw new Error("user already registered");
     }
   }

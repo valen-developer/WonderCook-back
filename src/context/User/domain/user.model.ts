@@ -5,11 +5,11 @@ import { UserName } from "./valueObjects/name.valueObject";
 import { UserPassword } from "./valueObjects/password.valueObject";
 import { UpdateAt } from "../../shared/domain/valueObjects/updateAt.valueObject";
 import { ICrypt } from "../../shared/domain/interfaces/crypt.interface";
-import { UserUUID } from "./valueObjects/uuid.valueObject";
+import { UUID } from "../../shared/domain/valueObjects/uuid.valueObject";
 import { UserBio } from "./valueObjects/bio.valueObject";
 
 export class User {
-  public readonly uuid: UserUUID;
+  public readonly uuid: UUID;
   public readonly name: UserName;
   public readonly email: UserEmail;
   public readonly password: UserPassword;
@@ -19,7 +19,7 @@ export class User {
   public readonly bio: UserBio;
 
   constructor(newUser: UserCreatorInterface, crypt: ICrypt) {
-    this.uuid = new UserUUID(newUser.uuid);
+    this.uuid = new UUID(newUser.uuid);
     this.name = new UserName(newUser.name);
     this.password = new UserPassword(newUser.password, crypt);
     this.email = new UserEmail(newUser.email);

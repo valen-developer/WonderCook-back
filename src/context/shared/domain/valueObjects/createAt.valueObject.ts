@@ -4,7 +4,7 @@ import { ValueObject } from "./valueObject";
 export class CreateAt implements ValueObject {
   value: string;
 
-  constructor(value: Date) {
+  constructor(value = new Date()) {
     this.value = value.toUTCString();
     this.checkValue();
   }

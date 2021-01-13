@@ -14,8 +14,6 @@ export class MockUserRepository implements UserRepository {
 
   async save(user: User): Promise<SaveResponse> {
     if (this.isRegisteredUser(user)) {
-      console.log("user is registered");
-
       return {
         ok: false,
         message: "user already exists",

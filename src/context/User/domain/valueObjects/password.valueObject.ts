@@ -20,8 +20,6 @@ export class UserPassword implements ValueObject {
   }
 
   private checkBiggerThanSixChars(): void {
-    console.log(`La longitud de la password es: ${this.value.length}`);
-
     if (this.value.length < 6)
       throw new Error("Password should be bigger than six characters");
   }
