@@ -8,6 +8,7 @@ import { User } from "../../../context/User/domain/user.model";
 import { Bcrypt } from "../../../context/shared/infrastructure/bcrypt";
 import { UserMongoRepository } from "../../../context/User/infrastucture/repositories/mongo/UserMongoRepository.repository";
 import { UserRepository } from "../../../context/User/domain/interfaces/User.repository";
+import { LoginUser } from "../../../context/User/application/loginUser";
 
 export class LoginUserController implements Controller {
   private userRepository: UserRepository;
@@ -24,7 +25,8 @@ export class LoginUserController implements Controller {
     try {
       const bcrypt = new Bcrypt();
 
-      const userDB = await this.userRepository.findByEmail(email);
+      const loginUser = new LoginUser(this.userRepository);
+      const userDB = await loginUser.login(email);
 
       const isValidUser = bcrypt.compare(password, userDB.password);
 
