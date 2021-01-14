@@ -1,7 +1,5 @@
-import {
-  SaveResponse,
-  UserRepository,
-} from "../../../../context/User/domain/interfaces/User.repository";
+import { SaveResponse } from "../../../../context/shared/domain/interfaces/saveReponse.interface";
+import { UserRepository } from "../../../../context/User/domain/interfaces/User.repository";
 import {
   User,
   UserCreatorInterface,

@@ -1,5 +1,5 @@
-import { NullValueException } from "../../shared/domain/exceptions/NullValue.exception";
-import { ValueObject } from "../../shared/domain/valueObjects/valueObject";
+import { NullValueException } from "../../../shared/domain/exceptions/NullValue.exception";
+import { ValueObject } from "../../../shared/domain/valueObjects/valueObject";
 
 export class RecipeBody implements ValueObject {
   value: string;

@@ -2,13 +2,10 @@ import mongoose from "mongoose";
 
 import { User, UserCreatorInterface } from "../../../domain/user.model";
 
-import {
-  SaveResponse,
-  UserRepository,
-} from "../../../domain/interfaces/User.repository";
+import { UserRepository } from "../../../domain/interfaces/User.repository";
 
+import { SaveResponse } from "../../../../shared/domain/interfaces/saveReponse.interface";
 import UserMongo from "./userMongoModel";
-import { Bcrypt } from "../../../../shared/infrastructure/bcrypt";
 
 export class UserMongoRepository implements UserRepository {
   async save(user: User): Promise<SaveResponse> {

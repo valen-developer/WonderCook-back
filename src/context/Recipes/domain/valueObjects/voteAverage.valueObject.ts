@@ -1,4 +1,4 @@
-import { ValueObject } from "../../shared/domain/valueObjects/valueObject";
+import { ValueObject } from "../../../shared/domain/valueObjects/valueObject";
 
 export class RecipeVoteAverage implements ValueObject {
   value: number;
