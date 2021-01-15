@@ -29,13 +29,13 @@ export class RecipeCreatorController implements Controller {
         body: body.body,
         image: body.image,
         ownID: body.ownID,
+        categories: body.categories,
       });
 
       await RecipeCreator.create(newRecipe, this.repository);
 
       resp.status(201).send();
     } catch (error) {
-      console.log(error);
       resp.status(400).json({ ok: false, error: error.message });
     }
   }

@@ -31,6 +31,9 @@ const reciperMongoModel = new Schema({
   ingredients: {
     type: [String],
   },
+  categories: {
+    type: [String],
+  },
   body: {
     type: String,
     required: true,

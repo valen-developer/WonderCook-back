@@ -1,14 +1,15 @@
-import { Model } from "../../shared/domain/interfaces/model.interface";
-import { CreateAt } from "../../shared/domain/valueObjects/createAt.valueObject";
 import { UpdateAt } from "../../shared/domain/valueObjects/updateAt.valueObject";
+import { CreateAt } from "../../shared/domain/valueObjects/createAt.valueObject";
 import { UUID } from "../../shared/domain/valueObjects/uuid.valueObject";
-import { RecipeBody } from "./valueObjects/body.valueObject";
-import { ImageUrl } from "./valueObjects/image.valueObject";
-import { RecipeIngredient } from "./valueObjects/ingredient.valueObject";
+import { Model } from "../../shared/domain/interfaces/model.interface";
+
+import { RecipeCategoryArray } from "./valueObjects/categoriesArray.valueObject";
 import { IngredientsArray } from "./valueObjects/ingredientsArray.valueObject";
-import { RecipeTitle } from "./valueObjects/title.valueObject";
 import { RecipeVoteAverage } from "./valueObjects/voteAverage.valueObject";
 import { RecipeVoteCount } from "./valueObjects/voteCount.valueObject";
+import { RecipeTitle } from "./valueObjects/title.valueObject";
+import { RecipeBody } from "./valueObjects/body.valueObject";
+import { ImageUrl } from "./valueObjects/image.valueObject";
 
 export class Recipe implements Model {
   public readonly title: RecipeTitle;
@@ -21,6 +22,7 @@ export class Recipe implements Model {
   public readonly body: RecipeBody;
   public readonly image: ImageUrl;
   public readonly ownID: UUID;
+  public readonly categories: RecipeCategoryArray;
 
   constructor({
     title,
@@ -33,6 +35,7 @@ export class Recipe implements Model {
     body,
     image,
     ownID,
+    categories,
   }: RecipeObjectContructor) {
     this.title = new RecipeTitle(title);
     this.uuid = new UUID(uuid);
@@ -40,10 +43,11 @@ export class Recipe implements Model {
     this.updatedAt = new UpdateAt(updatedAt);
     this.voteAverage = new RecipeVoteAverage(voteAverage);
     this.voteCount = new RecipeVoteCount(voteCount);
-    this.ingredients = new IngredientsArray(ingredients);
     this.body = new RecipeBody(body);
     this.image = new ImageUrl(image);
     this.ownID = new UUID(ownID);
+    this.ingredients = IngredientsArray.buildIngredients(ingredients);
+    this.categories = RecipeCategoryArray.buildCategories(categories);
   }
   toObject(): RecipeObject {
     return {
@@ -53,10 +57,11 @@ export class Recipe implements Model {
       updatedAt: this.updatedAt.value,
       voteAverage: this.voteAverage.value,
       voteCount: this.voteCount.value,
-      ingredients: this.ingredients.ingredientsAsString(),
       body: this.body.value,
       image: this.image.value,
       ownID: this.ownID.value,
+      ingredients: this.ingredients.ingredientsAsString(),
+      categories: this.categories.categoriesToString(),
     };
   }
 }
@@ -72,6 +77,7 @@ export interface RecipeObjectContructor {
   body: string;
   image: string;
   ownID: string;
+  categories: string;
 }
 
 export interface RecipeObject {
@@ -85,4 +91,5 @@ export interface RecipeObject {
   body: string;
   image: string;
   ownID: string;
+  categories: string[];
 }
