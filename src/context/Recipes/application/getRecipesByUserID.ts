@@ -1,3 +1,4 @@
+import { HttpStatus4xx } from "../../../apps/exceptions/statusExceptions/4xxException";
 import { NullValueException } from "../../shared/domain/exceptions/NullValue.exception";
 import { RecipeRepository } from "../domain/interfaces/recipeRepository.interface";
 import { Recipe, RecipeObject } from "../domain/recipe.model";
@@ -12,6 +13,8 @@ export class GetRecipesByUserID {
     const recipes = new Array<RecipeObject>();
 
     const recipesDB = await repository.getAllByUserID(userID);
+
+    if (!recipesDB) throw new HttpStatus4xx("not found", "not found", 404);
 
     recipesDB.forEach((recipeDB: any) => {
       recipes.push(
