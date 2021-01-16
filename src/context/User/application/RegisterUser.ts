@@ -1,3 +1,4 @@
+import { HttpStatus4xx } from "../../../apps/exceptions/statusExceptions/4xxException";
 import { UserRepository } from "../domain/interfaces/User.repository";
 import { User } from "../domain/user.model";
 
@@ -14,7 +15,7 @@ export class RegisterUser {
     const saveReponse = await this.repository.save(this.user);
 
     if (!saveReponse.ok) {
-      throw new Error("user already registered");
+      throw new HttpStatus4xx("bad request", "user already registered", 400);
     }
   }
 }

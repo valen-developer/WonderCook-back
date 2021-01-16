@@ -1,5 +1,6 @@
-import { Request, Response } from "express";
+import { json, Request, Response } from "express";
 import { Controller } from "../controller";
+import jwt from "jsonwebtoken";
 
 import {
   User,
@@ -11,6 +12,8 @@ import { RegisterUser } from "../../../context/User/application/RegisterUser";
 import { Bcrypt } from "../../../context/shared/infrastructure/bcrypt";
 import { UserMongoRepository } from "../../../context/User/infrastucture/repositories/mongo/UserMongoRepository.repository";
 import { UserRepository } from "../../../context/User/domain/interfaces/User.repository";
+import { enviroment } from "../../../config/enviroment";
+import { HttpStatus4xx } from "../../exceptions/statusExceptions/4xxException";
 
 export class RegisterUserController implements Controller {
   private userRepository: UserRepository;
@@ -40,9 +43,23 @@ export class RegisterUserController implements Controller {
       const registerUser = new RegisterUser(user, this.userRepository);
       await registerUser.register();
 
-      resp.status(201).send();
+      const token = jwt.sign(
+        user.toObjectWithOutPassword(),
+        enviroment.token.seed
+      );
+
+      resp.status(201).json({
+        ok: true,
+        user: user.toObjectWithOutPassword(),
+        token,
+      });
     } catch (error) {
-      //TODO: Check type of exception
+      if (error instanceof HttpStatus4xx)
+        resp.status(error.statusCode).json({
+          ok: false,
+          error: error.message,
+        });
+
       resp.status(400).json({
         ok: false,
         error: error.message,
