@@ -9,8 +9,10 @@ export class RecipeMongoRepository implements RecipeRepository {
   async getAllByUserID(userID: string): Promise<any> {
     return await RecipeMongoModel.find({ ownID: userID });
   }
-  getRecipeByID(recipeID: string): Promise<Recipe> {
-    throw new Error("Method not implemented.");
+  async getRecipeByID(id: string): Promise<any> {
+    const recipeDB = await RecipeMongoModel.findOne({ uuid: id });
+
+    return recipeDB;
   }
 
   async save(newRecipe: Recipe): Promise<SaveResponse> {

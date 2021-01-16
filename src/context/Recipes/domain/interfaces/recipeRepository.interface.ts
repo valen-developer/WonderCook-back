@@ -5,5 +5,5 @@ export interface RecipeRepository {
   save(newRecipe: Recipe): Promise<SaveResponse>;
 
   getAllByUserID(userID: string): Promise<any>;
-  getRecipeByID(recipeID: string): Promise<Recipe>;
+  getRecipeByID(id: string): Promise<any>;
 }
