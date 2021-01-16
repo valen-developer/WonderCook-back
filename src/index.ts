@@ -3,8 +3,8 @@ import mongoose from "mongoose";
 import cors from "cors";
 
 import { Server } from "./apps/server";
-import { enviroment } from "./config/enviroment";
 import { router } from "./apps/routes/index.routing";
+import { enviroment } from "./config/enviroment";
 
 export const SERVER = Server.getInstance(enviroment.server.port);
 

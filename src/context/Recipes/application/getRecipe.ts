@@ -9,6 +9,9 @@ export class GetRecipe {
   ): Promise<RecipeObject> {
     const recipeDB = await repository.getRecipeByID(id);
 
+    if (!recipeDB)
+      throw new HttpStatus4xx("not found", "not found recipe", 404);
+
     return recipeDB.toObject();
   }
 }

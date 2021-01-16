@@ -16,8 +16,6 @@ export class IngredientsArray implements ValueObject {
       { ingredient: string; quantity: string }
     ] = JSON.parse(ingredients);
 
-    console.log(ingredientsAsArray);
-
     ingredientsAsArray.forEach((ingredientObject) => {
       builtIngredients.push(
         new RecipeIngredient(
