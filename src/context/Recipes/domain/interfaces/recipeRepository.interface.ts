@@ -4,6 +4,6 @@ import { Recipe } from "../recipe.model";
 export interface RecipeRepository {
   save(newRecipe: Recipe): Promise<SaveResponse>;
 
-  getAllByUserID(userID: string): Promise<any>;
-  getRecipeByID(id: string): Promise<any>;
+  getAllByUserID(userID: string): Promise<Recipe[]>;
+  getRecipeByID(id: string): Promise<Recipe>;
 }

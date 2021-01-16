@@ -3,10 +3,10 @@ import { ValueObject } from "../../../shared/domain/valueObjects/valueObject";
 import { RecipeIngredient } from "./ingredient.valueObject";
 
 export class IngredientsArray implements ValueObject {
-  ingredient: RecipeIngredient[] = new Array<RecipeIngredient>();
+  value: RecipeIngredient[] = new Array<RecipeIngredient>();
 
   constructor(ingredients: RecipeIngredient[]) {
-    this.ingredient = ingredients;
+    this.value = ingredients;
   }
 
   public static buildIngredients(ingredients: string): IngredientsArray {
@@ -33,10 +33,10 @@ export class IngredientsArray implements ValueObject {
   public ingredientsAsString(): string {
     const ingredientsAsString: string[] = [];
 
-    this.ingredient.forEach((ingredient) => {
+    this.value.forEach((ingredient) => {
       ingredientsAsString.push(ingredient.toString());
     });
 
-    return JSON.stringify(this.ingredient);
+    return JSON.stringify(this.value);
   }
 }

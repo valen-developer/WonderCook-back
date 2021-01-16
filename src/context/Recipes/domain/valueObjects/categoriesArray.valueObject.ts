@@ -2,10 +2,10 @@ import { ValueObject } from "../../../shared/domain/valueObjects/valueObject";
 import { RecipeCategory } from "./category.valueObject";
 
 export class RecipeCategoryArray implements ValueObject {
-  ingredient: RecipeCategory[];
+  value: RecipeCategory[];
 
   private constructor(value: RecipeCategory[]) {
-    this.ingredient = value;
+    this.value = value;
   }
 
   public static buildCategories(categories: string): RecipeCategoryArray {
@@ -22,8 +22,8 @@ export class RecipeCategoryArray implements ValueObject {
   public categoriesToString(): string {
     let categories = new Array<string>();
 
-    this.ingredient.forEach((category) => {
-      categories.push(category.ingredient);
+    this.value.forEach((category) => {
+      categories.push(category.value);
     });
 
     return JSON.stringify(categories);

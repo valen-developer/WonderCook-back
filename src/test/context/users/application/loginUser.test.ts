@@ -18,9 +18,9 @@ describe("when an unregistered user try login", () => {
   describe("when a registered user try login", () => {
     test("should return a valid user", async () => {
       await registerUser.register();
-      const userDB = await loginUser.login(validUser.email.ingredient);
+      const userDB = await loginUser.login(validUser.email.value);
 
-      expect(userDB.email).toEqual(validUser.email.ingredient);
+      expect(userDB.email).toEqual(validUser.email.value);
     });
   });
 });

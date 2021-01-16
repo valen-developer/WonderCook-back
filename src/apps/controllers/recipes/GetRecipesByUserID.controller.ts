@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { GetRecipesByUserID } from "../../../context/Recipes/application/getRecipesByUserID";
+import { GetAllRecipesByUserID } from "../../../context/Recipes/application/getRecipesByUserID";
 import { RecipeCreator } from "../../../context/Recipes/application/recipeCreator";
 import { RecipeRepository } from "../../../context/Recipes/domain/interfaces/recipeRepository.interface";
 import { Controller } from "../controller";
@@ -15,7 +15,7 @@ export class GetRecipesByUserIDController implements Controller {
     const userID = new String(req.query.userID).toString();
 
     try {
-      const recipes = await GetRecipesByUserID.get(userID, this.repository);
+      const recipes = await GetAllRecipesByUserID.get(userID, this.repository);
 
       resp.json({
         userID,

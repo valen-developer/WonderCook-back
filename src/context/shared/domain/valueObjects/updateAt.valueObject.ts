@@ -2,19 +2,19 @@ import { NullValueException } from "../exceptions/NullValue.exception";
 import { ValueObject } from "./valueObject";
 
 export class UpdateAt implements ValueObject {
-  ingredient: string;
+  value: string;
 
   constructor(value = new Date()) {
-    this.ingredient = value.toUTCString();
+    this.value = value.toUTCString();
 
     this.checkValue();
   }
 
   private checkValue(): void {
-    if (!this.ingredient) throw new NullValueException("update at ");
+    if (!this.value) throw new NullValueException("update at ");
   }
 
   public toDate(): Date {
-    return new Date(this.ingredient);
+    return new Date(this.value);
   }
 }

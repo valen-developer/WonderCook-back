@@ -2,15 +2,15 @@ import { NullValueException } from "../../../shared/domain/exceptions/NullValue.
 import { ValueObject } from "../../../shared/domain/valueObjects/valueObject";
 
 export class UserAlias implements ValueObject {
-  ingredient: string;
+  value: string;
 
   constructor(value: string) {
-    this.ingredient = value;
+    this.value = value;
 
     this.checkValue();
   }
 
   private checkValue(): void {
-    if (!this.ingredient) throw new NullValueException("alias");
+    if (!this.value) throw new NullValueException("alias");
   }
 }

@@ -51,15 +51,15 @@ export class Recipe implements Model {
   }
   toObject(): RecipeObject {
     return {
-      title: this.title.ingredient,
-      uuid: this.uuid.ingredient,
-      createdAt: this.createdAt.ingredient,
-      updatedAt: this.updatedAt.ingredient,
-      voteAverage: this.voteAverage.ingredient,
-      voteCount: this.voteCount.ingredient,
-      body: this.body.ingredient,
-      image: this.image.ingredient,
-      ownID: this.ownID.ingredient,
+      title: this.title.value,
+      uuid: this.uuid.value,
+      createdAt: this.createdAt.value,
+      updatedAt: this.updatedAt.value,
+      voteAverage: this.voteAverage.value,
+      voteCount: this.voteCount.value,
+      body: this.body.value,
+      image: this.image.value,
+      ownID: this.ownID.value,
       ingredients: this.ingredients.ingredientsAsString(),
       categories: this.categories.categoriesToString(),
     };

@@ -3,12 +3,12 @@ import { NullValueException } from "../../shared/domain/exceptions/NullValue.exc
 import { RecipeRepository } from "../domain/interfaces/recipeRepository.interface";
 import { Recipe, RecipeObject } from "../domain/recipe.model";
 
-export class GetRecipesByUserID {
+export class GetAllRecipesByUserID {
   public static async get(
     userID: string,
     repository: RecipeRepository
   ): Promise<RecipeObject[]> {
-    GetRecipesByUserID.checkArguments(userID, repository);
+    GetAllRecipesByUserID.checkArguments(userID, repository);
 
     const recipes = new Array<RecipeObject>();
 
@@ -16,22 +16,8 @@ export class GetRecipesByUserID {
 
     if (!recipesDB) throw new HttpStatus4xx("not found", "not found", 404);
 
-    recipesDB.forEach((recipeDB: any) => {
-      recipes.push(
-        new Recipe({
-          title: recipeDB.title,
-          uuid: recipeDB.uuid,
-          createdAt: new Date(recipeDB.createdAt),
-          updatedAt: new Date(recipeDB.updatedAt),
-          voteAverage: recipeDB.voteAverage,
-          voteCount: recipeDB.voteCount,
-          ingredients: recipeDB.ingredients,
-          body: recipeDB.body,
-          image: recipeDB.image,
-          ownID: recipeDB.ownID,
-          categories: recipeDB.categories,
-        }).toObject()
-      );
+    recipesDB.forEach((recipeDB: Recipe) => {
+      recipes.push(recipeDB.toObject());
     });
 
     return recipes;
