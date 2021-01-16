@@ -1,11 +1,12 @@
+import { JsonWebTokenError } from "jsonwebtoken";
 import { ValueObject } from "../../../shared/domain/valueObjects/valueObject";
 import { RecipeIngredient } from "./ingredient.valueObject";
 
 export class IngredientsArray implements ValueObject {
-  value: RecipeIngredient[] = new Array<RecipeIngredient>();
+  ingredient: RecipeIngredient[] = new Array<RecipeIngredient>();
 
   constructor(ingredients: RecipeIngredient[]) {
-    this.value = ingredients;
+    this.ingredient = ingredients;
   }
 
   public static buildIngredients(ingredients: string): IngredientsArray {
@@ -14,6 +15,8 @@ export class IngredientsArray implements ValueObject {
     const ingredientsAsArray: [
       { ingredient: string; quantity: string }
     ] = JSON.parse(ingredients);
+
+    console.log(ingredientsAsArray);
 
     ingredientsAsArray.forEach((ingredientObject) => {
       builtIngredients.push(
@@ -27,13 +30,13 @@ export class IngredientsArray implements ValueObject {
     return new IngredientsArray(builtIngredients);
   }
 
-  public ingredientsAsString(): string[] {
+  public ingredientsAsString(): string {
     const ingredientsAsString: string[] = [];
 
-    this.value.forEach((ingredient) => {
-      ingredientsAsString.push(ingredient.value);
+    this.ingredient.forEach((ingredient) => {
+      ingredientsAsString.push(ingredient.toString());
     });
 
-    return ingredientsAsString;
+    return JSON.stringify(this.ingredient);
   }
 }

@@ -2,13 +2,13 @@ import { NullValueException } from "../../../shared/domain/exceptions/NullValue.
 import { ValueObject } from "../../../shared/domain/valueObjects/valueObject";
 
 export class RecipeIngredient implements ValueObject {
-  value: string;
+  ingredient: string;
 
   quantity: string;
 
   constructor(value: string, quantity = "0") {
     if (!value) throw new NullValueException("recipe ingredient");
-    this.value = value;
+    this.ingredient = value;
     this.quantity = quantity;
   }
 }

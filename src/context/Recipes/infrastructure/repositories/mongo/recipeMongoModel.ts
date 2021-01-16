@@ -29,10 +29,10 @@ const reciperMongoModel = new Schema({
     required: true,
   },
   ingredients: {
-    type: [String],
+    type: String,
   },
   categories: {
-    type: [String],
+    type: String,
   },
   body: {
     type: String,

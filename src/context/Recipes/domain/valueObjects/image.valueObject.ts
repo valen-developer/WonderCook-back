@@ -1,11 +1,11 @@
 import { ValueObject } from "../../../shared/domain/valueObjects/valueObject";
 
 export class ImageUrl implements ValueObject {
-  value: string;
+  ingredient: string;
 
   constructor(value = "") {
-    this.value = value;
+    this.ingredient = value;
 
-    if (!value) this.value = "";
+    if (!value) this.ingredient = "";
   }
 }

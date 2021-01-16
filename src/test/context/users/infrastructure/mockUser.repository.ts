@@ -47,7 +47,7 @@ export class MockUserRepository implements UserRepository {
     let userIn = null;
 
     this.users.forEach((user) => {
-      if (user.email.value === email) userIn = user;
+      if (user.email.ingredient === email) userIn = user;
     });
 
     return userIn;

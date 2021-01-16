@@ -1,18 +1,19 @@
 import { ValueObject } from "../../../shared/domain/valueObjects/valueObject";
 
 export class RecipeVoteCount implements ValueObject {
-  value: number;
+  ingredient: number;
 
   constructor(value = 0) {
-    this.value = value;
+    this.ingredient = value;
     this.isPositive();
   }
 
   private isPositive() {
-    if (this.value < 0) throw new Error("vote count should be bigger than 0");
+    if (this.ingredient < 0)
+      throw new Error("vote count should be bigger than 0");
   }
 
   public getValue() {
-    return Math.round(this.value);
+    return Math.round(this.ingredient);
   }
 }

@@ -1,3 +1,3 @@
 export interface ValueObject {
-  readonly value: any;
+  readonly ingredient: any;
 }

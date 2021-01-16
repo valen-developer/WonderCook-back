@@ -1,9 +1,9 @@
 import { ValueObject } from "../../../shared/domain/valueObjects/valueObject";
 
 export class UserBio implements ValueObject {
-  value: string | null;
+  ingredient: string | null;
 
   constructor(value: string | null) {
-    this.value = value;
+    this.ingredient = value;
   }
 }

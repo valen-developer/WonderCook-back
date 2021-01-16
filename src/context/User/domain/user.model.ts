@@ -31,14 +31,14 @@ export class User {
 
   public toObject(): UserObject {
     const user: UserObject = {
-      uuid: this.uuid.value,
-      name: this.name.value,
-      email: this.email.value,
-      password: this.password.value,
-      alias: this.alias.value,
-      createAt: this.createAt.value,
-      updateAt: this.updateAt.value,
-      bio: this.bio.value,
+      uuid: this.uuid.ingredient,
+      name: this.name.ingredient,
+      email: this.email.ingredient,
+      password: this.password.ingredient,
+      alias: this.alias.ingredient,
+      createAt: this.createAt.ingredient,
+      updateAt: this.updateAt.ingredient,
+      bio: this.bio.ingredient,
     };
 
     return user;
@@ -46,13 +46,13 @@ export class User {
 
   public toObjectWithOutPassword(): UserObjectWithOutPassword {
     const user: UserObjectWithOutPassword = {
-      uuid: this.uuid.value,
-      name: this.name.value,
-      email: this.email.value,
-      alias: this.alias.value,
-      createAt: this.createAt.value,
-      updateAt: this.updateAt.value,
-      bio: this.bio.value,
+      uuid: this.uuid.ingredient,
+      name: this.name.ingredient,
+      email: this.email.ingredient,
+      alias: this.alias.ingredient,
+      createAt: this.createAt.ingredient,
+      updateAt: this.updateAt.ingredient,
+      bio: this.bio.ingredient,
     };
     return user;
   }

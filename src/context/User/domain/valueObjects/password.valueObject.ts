@@ -3,11 +3,11 @@ import { ICrypt } from "../../../shared/domain/interfaces/crypt.interface";
 import { ValueObject } from "../../../shared/domain/valueObjects/valueObject";
 
 export class UserPassword implements ValueObject {
-  value: string;
+  ingredient: string;
   private crypt: ICrypt;
 
   constructor(value: string, crypt: ICrypt) {
-    this.value = value;
+    this.ingredient = value;
     this.crypt = crypt;
 
     this.checkValue();
@@ -16,15 +16,15 @@ export class UserPassword implements ValueObject {
   }
 
   private checkValue(): void {
-    if (!this.value) throw new NullValueException("password ");
+    if (!this.ingredient) throw new NullValueException("password ");
   }
 
   private checkBiggerThanSixChars(): void {
-    if (this.value.length < 6)
+    if (this.ingredient.length < 6)
       throw new Error("Password should be bigger than six characters");
   }
 
   private encrypt(): void {
-    this.value = this.crypt.hasSync(this.value);
+    this.ingredient = this.crypt.hasSync(this.ingredient);
   }
 }
