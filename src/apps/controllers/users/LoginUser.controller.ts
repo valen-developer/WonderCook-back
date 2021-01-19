@@ -9,6 +9,7 @@ import { Bcrypt } from "../../../context/shared/infrastructure/bcrypt";
 import { UserMongoRepository } from "../../../context/User/infrastucture/repositories/mongo/UserMongoRepository.repository";
 import { UserRepository } from "../../../context/User/domain/interfaces/User.repository";
 import { LoginUser } from "../../../context/User/application/loginUser";
+import { HttpStatus4xx } from "../../exceptions/statusExceptions/4xxException";
 
 export class LoginUserController implements Controller {
   private userRepository: UserRepository;
@@ -25,35 +26,34 @@ export class LoginUserController implements Controller {
     try {
       const bcrypt = new Bcrypt();
 
-      const loginUser = new LoginUser(this.userRepository);
-      const userDB = await loginUser.login(email);
+      const userDB = await LoginUser.login(
+        this.userRepository,
+        bcrypt,
+        email,
+        password
+      );
 
-      const isValidUser = bcrypt.compare(password, userDB.password);
+      const token = jwt.sign(userDB, enviroment.token.seed, {
+        expiresIn: enviroment.token.expireIn,
+      });
 
-      if (isValidUser) {
-        const user = new User(userDB, bcrypt);
-        const token = jwt.sign(
-          user.toObjectWithOutPassword(),
-          enviroment.token.seed,
-          { expiresIn: enviroment.token.expireIn }
-        );
-
-        resp.json({
-          ok: true,
-          user: user.toObjectWithOutPassword(),
-          token,
-        });
-      } else {
-        resp.status(403).json({
+      resp.json({
+        ok: true,
+        user: userDB,
+        token,
+      });
+    } catch (error) {
+      if (error instanceof HttpStatus4xx) {
+        resp.status(error.statusCode).json({
           ok: false,
           error: "Email or password invalid",
         });
+      } else {
+        resp.status(500).json({
+          ok: false,
+          error: error.message,
+        });
       }
-    } catch (error) {
-      resp.status(403).json({
-        ok: false,
-        error: "Email or password invalid",
-      });
     }
   }
 }
